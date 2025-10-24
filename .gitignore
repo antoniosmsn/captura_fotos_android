@@ -1,15 +1,120 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+# Archivos compilados / APKs
+*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+
+# Archivos de construcción Gradle
+.gradle/
+build/
+*/build/
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+
+# Archivos locales de configuración
 local.properties
+gradle.properties
+keystore.properties
+
+# Android Studio / IntelliJ IDEA
+*.iml
+.idea/
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/gradle.xml
+.idea/assetWizardSettings.xml
+.idea/dictionaries
+.idea/libraries
+.idea/caches
+.idea/modules.xml
+.idea/navEditor.xml
+.idea/**/compiler.xml
+.idea/**/misc.xml
+*.ipr
+*.iws
+out/
+
+# Archivos de configuración del sistema
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Archivos de log
+*.log
+
+# Archivos temporales y caché
+/captures
+.externalNativeBuild/
+.cxx/
+*.swp
+*~
+.swo
+.temp
+tmp/
+
+# NDK
+obj/
+
+# Archivos de firma (NUNCA subir claves)
+*.jks
+*.keystore
+release/
+
+# Archivos generados
+bin/
+gen/
+generated/
+
+# Proguard
+proguard/
+
+# Lint
+lint-report.html
+lint-report_files/
+lint-results.xml
+
+# Crashlytics
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# Navigation Editor
+.navigation/
+
+# Backup files
+*.bak
+*~.nib
+
+# Archivos específicos del dispositivo
+.adb_usb.ini
+
+# Windows
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk

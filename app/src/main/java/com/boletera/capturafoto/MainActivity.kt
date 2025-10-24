@@ -88,8 +88,12 @@ class MainActivity : AppCompatActivity() {
                 val resizedBitmap = ImageUtils.resizeImage(rotatedBitmap, 800, 600)
                 val colorCorrectedBitmap = ImageUtils.adjustColorBalance(resizedBitmap)
                 
+                // Agregar información del autobús y fecha
+                updateStatus("📝 Agregando información de autobús...")
+                val finalBitmap = ImageUtils.addTextOverlay(colorCorrectedBitmap, "124")
+                
                 // Guardar la imagen procesada
-                val processedFile = ImageUtils.saveBitmapToFile(colorCorrectedBitmap, this@MainActivity)
+                val processedFile = ImageUtils.saveBitmapToFile(finalBitmap, this@MainActivity)
                 updateStatus("✓ Imagen procesada y guardada: ${processedFile.name}")
                 updateStatus("📁 Ubicación: ${processedFile.absolutePath}")
                 updateStatus("✅ Proceso completado exitosamente")

@@ -3,7 +3,11 @@ package com.boletera.capturafoto
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Matrix
+import android.graphics.Paint
+import android.graphics.Rect
 import android.util.Base64
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -58,6 +62,71 @@ object ImageUtils {
         
         adjustedBitmap.setPixels(pixels, 0, width, 0, 0, width, height)
         return adjustedBitmap
+    }
+    
+    /**
+     * Agrega texto de información sobre la imagen (número de autobús y fecha)
+     */
+    fun addTextOverlay(bitmap: Bitmap, busNumber: String): Bitmap {
+        val mutableBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
+        val canvas = Canvas(mutableBitmap)
+        
+        // Configurar fecha actual
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault())
+        val currentDate = dateFormat.format(Date())
+        
+        // Configurar paint para fondo semi-transparente
+        val backgroundPaint = Paint().apply {
+            color = Color.argb(180, 0, 0, 0) // Negro con 70% opacidad
+            style = Paint.Style.FILL
+        }
+        
+        // Configurar paint para texto
+        val textPaint = Paint().apply {
+            color = Color.WHITE
+            textSize = bitmap.width * 0.05f // 5% del ancho de la imagen
+            isAntiAlias = true
+            isFakeBoldText = true
+            setShadowLayer(4f, 2f, 2f, Color.BLACK)
+        }
+        
+        // Textos a mostrar
+        val line1 = "Autobús: $busNumber"
+        val line2 = "Fecha: $currentDate"
+        
+        // Medir textos
+        val bounds1 = Rect()
+        val bounds2 = Rect()
+        textPaint.getTextBounds(line1, 0, line1.length, bounds1)
+        textPaint.getTextBounds(line2, 0, line2.length, bounds2)
+        
+        val maxTextWidth = maxOf(bounds1.width(), bounds2.width())
+        val textHeight = bounds1.height()
+        val lineSpacing = textHeight * 0.3f
+        
+        // Calcular posición (esquina inferior izquierda con padding)
+        val padding = bitmap.width * 0.03f
+        val backgroundHeight = textHeight * 2 + lineSpacing + padding * 2
+        val backgroundY = bitmap.height - backgroundHeight
+        
+        // Dibujar fondo semi-transparente
+        canvas.drawRect(
+            0f,
+            backgroundY,
+            maxTextWidth + padding * 2,
+            bitmap.height.toFloat(),
+            backgroundPaint
+        )
+        
+        // Dibujar textos
+        val textX = padding
+        var textY = backgroundY + padding + textHeight
+        canvas.drawText(line1, textX, textY, textPaint)
+        
+        textY += textHeight + lineSpacing
+        canvas.drawText(line2, textX, textY, textPaint)
+        
+        return mutableBitmap
     }
     
     /**
